@@ -1,0 +1,181 @@
+﻿@model PortalNegocios.Presentacion.AppWeb.Models.Hospedaje.HospedajeModelView
+@{
+    Layout = null;
+}
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Nuevo Hospedaje</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            <div class="col-md-12">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Codigo</label>
+                        <input type="text" id="txtCodigo" class="form-control" disabled placeholder="Nuevo"  />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Fecha Registro</label>
+                        <div class="input-group date dt-picker">
+                            <input type="text" class="form-control" id="txtFechaRegistro" readonly="readonly"  value="@DateTime.Today.ToShortDateString()"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+
+                                <li role="presentation" class="active"><a href="#Descripcion" aria-controls="home" role="tab" data-toggle="tab">Descripciòn</a></li>
+                                <li role="presentation"><a href="#imagenes" aria-controls="profile" role="tab" data-toggle="tab">Imagenes</a></li>
+                               
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane active" id="Descripcion">
+                                    
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Nombre</label>
+                                                <input type="text" class="form-control" id="txtNombre" placeholder="Ejem: Marcos Ramon Villena">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Descripcion Corta</label>
+                                                <input type="text" class="form-control" id="txtDescripcionCorta" placeholder="Ejem: Cabañas y bungalos">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Descripcion</label>
+                                                <textarea class="form-control noresize" rows="4" id="txtDescripcion" placeholder="Ejem : Hermozo hotel donde ...."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Direccion :</label>
+                                                <input type="text" class="form-control" id="txtDireccion" placeholder="Ejem: Calle. Bolognesi 308">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Localidad</label>
+                                                <input type="text" class="form-control" id="txtLocalidad" placeholder="Ejem: Chontabamba">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Telefono</label>
+                                                <input type="text" class="form-control" id="txtTelefono" placeholder="Ejem: Calle. Bolognesi 308">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Celular</label>
+                                                <input type="text" class="form-control" id="txtCelular" placeholder="Ejem: Chontabamba">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Tipo</label>
+                                                <select class="form-control" id="cboTipoHospedaje">
+                                                    @foreach (var tipoHospedaje in Model.DatosHospedajeModelView.tipoHospedaje)
+                                                    {
+                                                        <option value="@tipoHospedaje.CodigoValor">@tipoHospedaje.Descripcion</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="imagenes">
+
+                                   
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Portada</label>
+                                                <input type="file" class="form-control" id="flPortada" placeholder="Cargue imagen">
+                                                <button id="btnGuardarImagen" class="btn btn-success">Guardar</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <center>
+                                                    <img id="imgPreview" width="200" />
+                                                </center>
+                                            </div>
+                                        </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-12">
+        <center>
+            <button id="btnGrabar"  class="btn btn-danger btn-bhdefault" >Grabar</button>
+        </center>
+    </div>
+</div>
+
+
+<script>
+
+    function ClassHospedaje() {
+        this.IdHospedaje = 0;
+        this.Nombre = "";
+        this.Descripcion = "";
+        this.DescripcionCorta = "";
+        this.Direccion = "";
+        this.Localidad = "";
+        this.Telefono = "";
+        this.Celular = "";
+        this.TipoHospedaje = "";
+        this.UrlPortada = "";
+    }
+
+    window.Hospedaje = new ClassHospedaje();
+    window.Hospedaje.IdHospedaje = @Model.hospedajeDTO.IdHospedaje;
+    window.Hospedaje.Nombre = '@Model.hospedajeDTO.Nombre';
+    window.Hospedaje.Descripcion = '@Model.hospedajeDTO.Descripcion';
+    window.Hospedaje.DescripcionCorta = '@Model.hospedajeDTO.DescripcionCorta';
+    window.Hospedaje.Direccion = '@Model.hospedajeDTO.Direccion';
+    window.Hospedaje.Localidad = '@Model.hospedajeDTO.Localidad';
+    window.Hospedaje.Telefono = '@Model.hospedajeDTO.Telefono';
+    window.Hospedaje.Celular = '@Model.hospedajeDTO.Celular';
+    window.Hospedaje.TipoHospedaje = '@Model.hospedajeDTO.TipoHospedaje';
+    window.Hospedaje.UrlPortada = '@Model.hospedajeDTO.UrlPortada';
+
+
+</script>
+
+@Scripts.Render("~/Scripts/Views/Hospedaje")

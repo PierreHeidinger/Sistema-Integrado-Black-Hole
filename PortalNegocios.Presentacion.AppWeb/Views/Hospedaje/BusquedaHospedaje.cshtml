@@ -1,0 +1,124 @@
+﻿@model PortalNegocios.Presentacion.AppWeb.Models.Hospedaje.BusquedaHospedajeModelView
+@{
+
+}
+
+<style>
+
+    #mdDialog{
+        width:95% !important;
+    }
+</style>
+
+<div class="page-title">
+    <table>
+        <tr>
+            <td>
+                <button id="btnNuevo" class="btn btn-primary btn-primary btn-bhdefault" data-toggle="modal" data-target="#mdHospedaje" style="width:120px">Nuevo</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div style="overflow:auto;height:340px">
+                    <table class="datatable table table-bordered">
+                        <tr>
+                            <th class="HeaderTable" style="background-color:#1ABC9C;color:whitesmoke;text-align:center">
+                                Id
+                            </th>
+                            <th class="HeaderTable" style="background-color:#1ABC9C;color:whitesmoke;text-align:center">
+                                Nombre
+                            </th>
+                            <th class="HeaderTable" style="background-color:#1ABC9C;color:whitesmoke;text-align:center">
+                                Descripcion Corta
+                            </th>
+                            <td>
+                                Tipo
+                            </td>
+                        </tr>                        
+                        @foreach (var item in Model.busquedaHospedajeDTO)
+                        {
+                        <tr>
+                            <td style="color:dimgrey;text-align:center;background-color:#9abcc3">
+                                @Html.DisplayFor(modelItem => item.IdHospedaje)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DescripcionCorta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoHospedaje)
+                            </td>
+
+                            <td style="text-align:center">
+
+                                <a data-toggle="modal" onclick="ObtenerHospedaje(@item.IdHospedaje)" data-target="#mdHospedaje">
+                                    <img src="~/imagenes/Hospedaje/Busqueda/detalle.png" width="18" title="Detalles" />
+                                </a>
+
+                            </td>
+                        </tr>
+                        }
+
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Hospedaje-->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" id="mdHospedaje" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="mdDialog">
+        <div class="modal-content" id="divHospedaje">
+        </div>
+    </div>
+ </div>
+
+ <script>
+     
+     $("#btnNuevo").click(function () {
+         $.ajax({
+             type: "GET",
+             url: '/Hospedaje/NuevoHospedaje',
+             contentType: "application/html; charset=utf-8",
+             datatype: "html",
+             success: function (hospedaje) {
+                 $('#divHospedaje').html(hospedaje);
+             },
+             error: function () {
+                 alert("Error: Dynamic content load failed.");
+             }
+         });
+     });
+
+
+     function ObtenerHospedaje(id) {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ObtenerHospedaje", "Hospedaje")',
+            contentType: "application/json; charset=utf-8",
+            data: { "idHospedaje": id },
+            datatype: "json",
+            success: function (hospedaje) {
+                $('#divHospedaje').html(hospedaje);
+            },
+            error: function () {
+                alert("Error: Dynamic content load failed.");
+            }
+         });
+     }
+
+ </script>
